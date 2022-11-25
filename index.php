@@ -1,11 +1,11 @@
 <?php
-$pageTitle = "Judecatoria SECTORULUI 3";
+$pageTitle = "Tribunalul BUCURESTI";
+
+include "session.php";
+
 
 ?><!DOCTYPE html><html lang="ro"><head><?php include "head.php"; ?></head><body><?php
-
-include "init.php"
-
+	include "navbar.php";
 ?><main>
-<h1>Welcome to My Website</h1>
 </main>
 </body></html>

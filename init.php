@@ -1,12 +1,15 @@
 <?php
 
-$_servername = "localhost";
-$_username = "basic";
-$_password = file_get_contents("p");
-$_database = "proces_v.16";
+if(!isset($db)) {
 
-$db = mysqli_connect($_servername, $_username, $_password, $_database);
+	$__servername = "localhost";
+	$__username = "basic";
+	$__password = file_get_contents("p");
+	$__database = "proces_v.27";
 
-if (!$db) {
-  die("Connection failed: " . mysqli_connect_error());
+	$db = mysqli_connect($__servername, $__username, $__password, $__database);
+
+	if (!$db) {
+		die("Connection failed: " . mysqli_connect_error());
+	}
 }
