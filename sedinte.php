@@ -6,13 +6,13 @@ include "session.php";
 
 ?><!DOCTYPE html><html lang="ro"><head><?php include "head.php"; ?></head><body><?php
 	include "navbar.php";
-?><main><div class="container"><form method="get" action="/dosare.php">
+?><main>
 <div style="display:block;height:4rem;"></div>
 
 <div class="input-group" style="width:50%;margin:auto">
-<input name="numep" type="search" class="form-control rounded" placeholder="Cauta o persoana" aria-label="Search" aria-describedby="search-addon" />
+<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
 <button type="button" class="btn btn-outline-primary">search</button></div>
 
 
-</form></div></main>
+</main>
 </body></html>

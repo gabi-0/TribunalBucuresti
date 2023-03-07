@@ -22,3 +22,27 @@ function ordinalRoman($nr) {
 	
 	return "a ". numberToRomanRepresentation($nr) ."-a";
 }
+
+
+function getBrowser($user_agent)
+{
+	$browser = "N/A";
+
+	$browsers = [
+	'/msie/i' => 'Internet explorer',
+	'/firefox/i' => 'Firefox',
+	'/safari/i' => 'Safari',
+	'/chrome/i' => 'Chrome',
+	'/edge/i' => 'Edge',
+	'/opera/i' => 'Opera',
+	//'/mobile/i' => 'Mobile browser',
+	];
+
+	foreach ($browsers as $regex => $value) {
+		if (preg_match($regex, $user_agent)) {
+			$browser = $value;
+		}
+	}
+
+	return $browser;
+}

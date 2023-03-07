@@ -2,7 +2,7 @@
 
 
 if(isset($_session_id))
-	goto no_session;
+	goto skip_load;
 
 
 $clearCookie = false;
@@ -10,7 +10,7 @@ $clearCookie = false;
 
 if(!isset($_COOKIE['sid']) || !isset($_COOKIE['stoken'])) {
 	$clearCookie = true;
-	goto no_session;
+	goto skip_load;
 }
 
 
@@ -21,24 +21,24 @@ $token = mysqli_real_escape_string($db, htmlspecialchars($_COOKIE["stoken"]));
 
 $query = "SELECT * FROM Sesiune WHERE id=". $sid .";";
 
-if(($res = mysqli_query($db, $query)) === false)
-	goto no_session;
+if(($__res = mysqli_query($db, $query)) === false)
+	goto skip_load;
 
-if(mysqli_num_rows($res) == 0) {
+if(mysqli_num_rows($__res) == 0) {
 	$clearCookie = true;
-	goto no_session;
+	goto skip_load;
 }
 
-$row = mysqli_fetch_assoc($res);
-if (empty($row["expires"]) || empty($row["token"])) {
+$__row = mysqli_fetch_assoc($__res);
+if (empty($__row["expires"]) || empty($__row["token"])) {
 	$clearCookie = true;
-	goto no_session;
+	goto skip_load;
 }
 
 // check expiration and check token
-if($row["expires"] < time() || hash_equals($row["token"], $token) == false) {
+if($__row["expires"] < time() || hash_equals($__row["token"], $token) == false) {
 	$clearCookie = true;
-	goto no_session;	
+	goto skip_load;	
 }
 
 
@@ -46,11 +46,19 @@ if($row["expires"] < time() || hash_equals($row["token"], $token) == false) {
 $_session_id = $_session_nume = $_session_prenume = $_session_email = null;
 $_session_idReprezentant = $_session_idMagistrat = null;
 $_session_isJudge = false;
-if($row["userR"])
-	$_session_idReprezentant = $row["userR"];
+if($__row["userR"])
+	$_session_idReprezentant = $__row["userR"];
 else {
 	$_session_isJudge = true;
-	$_session_idMagistrat = $row["userM"];
+	$_session_idMagistrat = $__row["userM"];
+}
+
+if($__row["extend"] == 1) {
+	$expires = time() + 60*60*24;
+	setcookie("sid", $sid, $expires, '/', '', true, true);
+	setcookie("stoken", $token, $expires, '/', '', true, true);
+	$q = "UPDATE Sesiune SET expires='". $expires ."' WHERE id='". $sid ."';";
+	mysqli_query($db, $q);
 }
 
 
@@ -58,19 +66,19 @@ $query = "SELECT * FROM Reprezentanti WHERE id=". $_session_idReprezentant .";";
 if($_session_isJudge)
 	$query = "SELECT * FROM Magistrati WHERE id=". $_session_idMagistrat .";";
 
-if(($res = mysqli_query($db, $query)) === false || mysqli_num_rows($res) == 0) {
+if(($__res = mysqli_query($db, $query)) === false || mysqli_num_rows($__res) == 0) {
 	$clearCookie = true;
-	goto no_session;
+	goto skip_load;
 }
 
-$row = mysqli_fetch_assoc($res);
-$_session_id = $row["id"];
-$_session_nume = $row["nume"];
-$_session_prenume = $row["prenume"];
-$_session_email = $row["email"];
+$__row = mysqli_fetch_assoc($__res);
+$_session_id = $__row["id"];
+$_session_nume = $__row["nume"];
+$_session_prenume = $__row["prenume"];
+$_session_email = $__row["email"];
 
 
-no_session:
+skip_load:
 
 if($clearCookie) {
 	setcookie("sid", "", 99);

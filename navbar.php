@@ -8,7 +8,7 @@ $homeName = 'Tribunalul BUCURESTI';
 	aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		<li class="nav-item"><a class="nav-link" href="#">Dosare</a></li>
+		<li class="nav-item"><a class="nav-link" href="/dosare.php">Dosare</a></li>
 		<li class="nav-item"><a class="nav-link" href="#">Sedinte</a></li>
 		<li class="nav-item"><a class="nav-link" href="/sectii.php">Organizare</a></li>
 		</ul><?php
@@ -21,11 +21,12 @@ if(isset($_session_id)) {
 	else '<i class="fa-solid fa-scale-balanced"></i>';
 	echo $_session_nume ." ". $_session_prenume;
 	?></a><ul class="dropdown-menu float-right">
-		<li><a class="dropdown-item" href="/login.php"><i class="fa-solid fa-landmark"></i>Sedinte</a></li>
-		<li><a class="dropdown-item" href="/login.php"><i class="fa-regular fa-folder"></i>Dosare</a></li>
-		<li><a class="dropdown-item" href="/login.php"><i class="fa-solid fa-gears"></i>Setari</a></li>
+		<li><a class="dropdown-item" href="/sedinte.php"><i class="fa-solid fa-landmark"></i>Sedinte</a></li>
+		<li><a class="dropdown-item" href="/magdosare.php"><i class="fa-regular fa-folder"></i>Dosarele mele</a></li>
+		<li><a class="dropdown-item" href="/dosarnou.php"><i class="fa-solid fa-plus"></i></i>Adauga dosar</a></li>
+		<li><a class="dropdown-item" href="/setaricont.php"><i class="fa-solid fa-gears"></i>Setari</a></li>
 		<li><hr class="dropdown-divider"></li>
-		<li><a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Iesiti din cont</a></li>
+		<li><a class="dropdown-item" href="/logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i>Iesiti din cont</a></li>
 		</ul></div><?php
 
 } else {

@@ -1,7 +1,13 @@
 <?php
+
 $pageTitle = "Tribunalul BUCURESTI";
 
 include "session.php";
+include "init.php";
+
+$q = "SELECT * FROM Magistrati;";
+mysqli_query($db, $q);
+exit();
 
 
 ?><!DOCTYPE html><html lang="ro"><head><?php include "head.php"; ?></head><body><?php

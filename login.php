@@ -63,14 +63,17 @@ if(password_verify($pass, $row["parola"]) === false) {
 // create session
 $sid = false;
 $id = $row["id"];
-if(isset($_POST["remember"]))
-	$expires = time() + 60*60*10;
+$extend = (int)isset($_POST["remember"]);
+if($extend)
+	$expires = time() + 60*60*24;
 else
 	$expires = time() + 60*30;
 $token = base64_encode(random_bytes(189)); // 189 bytes so converted to base64 gives 252 which is < 255
 
-$query = "INSERT INTO Sesiune (token, userR, expires) VALUES ('". $token ."', ". $id .", ". $expires .")";
-if($judge) $query = "INSERT INTO Sesiune (token, userM, expires) VALUES ('". $token ."', ". $id .", ". $expires .")";
+$ua = mysqli_real_escape_string($db, htmlspecialchars($_SERVER['HTTP_USER_AGENT']));
+$query = "INSERT INTO Sesiune (token, userR, extend, expires, ua) VALUES ('". $token ."', ". $id .", ". $extend .", ". $expires .", '". $ua ."')";
+if($judge) $query = "INSERT INTO Sesiune (token, userM, extend, expires, ua) VALUES ('".
+		$token ."', ". $id .", ". $extend .", ". $expires .",'". $ua ."')";
 
 if(mysqli_query($db, $query) !== true) {
 	goto skip_exec;
@@ -95,6 +98,7 @@ if(isset($res))
 	include "navbar.php";
 ?><main><div class="container"><form method="post">
 
+	<div style="display:block;height:6rem;"></div>
 	<div class="col-md-4"><label for="invalidationUsername" class="form-label">Username</label>
 	<div class="input-group has-invalidation"><?php if(!$judge){ ?><span class="input-group-text" id="inputGroupPrepend">@</span><?php } ?>
 		<input name="user" type="text" class="<?php if($invalid_user) echo "is-invalid"; else if($invalid_user === 0) echo "is-valid ";
