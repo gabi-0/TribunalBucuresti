@@ -68,7 +68,7 @@ if($extend)
 	$expires = time() + 60*60*24;
 else
 	$expires = time() + 60*30;
-$token = base64_encode(random_bytes(189)); // 189 bytes so converted to base64 gives 252 which is < 255
+$token = base64_encode(random_bytes(189)); // 189 bytes; so converted to base64 gives 252 which is < 255
 
 $ua = mysqli_real_escape_string($db, htmlspecialchars($_SERVER['HTTP_USER_AGENT']));
 $query = "INSERT INTO Sesiune (token, userR, extend, expires, ua) VALUES ('". $token ."', ". $id .", ". $extend .", ". $expires .", '". $ua ."')";
