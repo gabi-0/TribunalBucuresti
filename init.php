@@ -5,8 +5,8 @@ if(!isset($db)) {
 
 	$__servername = "localhost";
 	$__username = "basic";
-	$__password = file_get_contents("p");
-	$__database = file_get_contents("f");
+	$__password = file_get_contents("p.hid");
+	$__database = file_get_contents("f.hid");
 	//$__database = "proces_v.7";
 
 	$db = mysqli_connect($__servername, $__username, $__password, $__database);
