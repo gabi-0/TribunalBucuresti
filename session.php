@@ -1,5 +1,6 @@
 <?php
 
+header('Content-type: text/html; charset=utf-8');
 
 if(isset($_session_id))
 	goto skip_load;
