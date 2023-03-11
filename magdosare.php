@@ -6,6 +6,7 @@ include "init.php";
 
 $limit = 10;
 $numep = "";
+$an = date('Y');
 
 if(empty($_GET['an'])) {
     goto page_render;
@@ -36,8 +37,8 @@ page_render:
 <div style="display:block;height:2rem;"></div>
 <div class="input-group" style="width:30%;margin:auto">
 <input name="an" type="number" class="form-control rounded" placeholder="Introduceti anul" aria-label="Search" min="1990"
-max="<?php echo date('Y')+10; ?>" value="<?php echo date('Y'); ?>" aria-describedby="search-addon" />
-<button type="button" class="btn btn-outline-primary">search</button></div></form>
+max="<?php echo date('Y')+10; ?>" value="<?php echo $an; ?>" aria-describedby="search-addon" />
+<button type="submit" class="btn btn-outline-primary">search</button></div></form>
 
 <div style="display:block;height:2rem;"></div>
 <div style="width:85%;margin:auto;"><table class="table table-striped"><thead><tr>
